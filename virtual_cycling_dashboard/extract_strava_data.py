@@ -10,9 +10,9 @@ load_dotenv()
 # Load credentials from .env
 CLIENT_ID = os.getenv("STRAVA_CLIENT_ID")
 CLIENT_SECRET = os.getenv("STRAVA_CLIENT_SECRET")
-ACCESS_TOKEN = os.getenv("STRAVA_API_KEY")  # your chosen variable
+ACCESS_TOKEN = os.getenv("STRAVA_API_KEY")  
 REFRESH_TOKEN = os.getenv("STRAVA_REFRESH_TOKEN")
-EXPIRES_AT = int(os.getenv("STRAVA_TOKEN_EXPIRES_AT", 0))  # default 0 if missing
+EXPIRES_AT = int(os.getenv("STRAVA_TOKEN_EXPIRES_AT", 0))  
 
 def refresh_token_if_needed():
     global ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT
@@ -56,7 +56,7 @@ refresh_token_if_needed()
 # Prepare headers for API requests
 headers = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
 
-# Fetch your last 200 activities (page 1 initially)
+# Fetch last 200 activities (page 1 initially)
 url = "https://www.strava.com/api/v3/athlete/activities"
 params = {"per_page": 200, "page": 1}
 
@@ -73,7 +73,7 @@ while True:
     all_activities.extend(data)
     params["page"] += 1
 
-# Filter only virtual rides from 2025
+# Filter only virtual rides from 2025 & 2026
 rides_summary = []
 for ride in all_activities:
     ride_date = datetime.strptime(ride["start_date"], "%Y-%m-%dT%H:%M:%SZ")
@@ -95,5 +95,5 @@ for ride in all_activities:
         })
 
 df_summary = pd.DataFrame(rides_summary)
-df_summary.to_csv("strava_virtual_2025_summary.csv", index=False)
-print("Virtual 2025 rides CSV created!")
+df_summary.to_csv("strava_virtual_summary.csv", index=False)
+print("Virtual rides CSV created!")
