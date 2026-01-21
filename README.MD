@@ -31,15 +31,23 @@ This repository also serves as a space to **experiment, learn, and exchange idea
 
 ## Architecture (planned)
 
-trava API
-↓
-Python (Ingestion)
-↓
-PostgreSQL (Raw & Analytics layers)
-↓
-dbt (Transformations & Modeling)
-↓
-Tableau (Visualization)
+    Strava API
+        │
+        ▼
+    Python (Ingestion)
+        │
+        ▼
+    PostgreSQL
+    (Raw & Analytics Layers)
+        │
+        ▼
+    dbt
+    (Transformations & Modeling)
+        │
+        ▼
+    Tableau
+    (Visualization)
+
 
 ---
 
