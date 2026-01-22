@@ -8,7 +8,7 @@ with source as (
         activity_id,
         extracted_at_utc,
         payload
-    from {{source('neondb.raw','strava_activities')}}
+    from {{ source('raw', 'strava_activities') }}
 ),
 
 final as (

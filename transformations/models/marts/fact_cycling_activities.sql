@@ -4,7 +4,7 @@
 ) }}
 
 with source as (
-    select * from {{ source('neondb.raw', 'stg_strava_activities') }}
+    select * from {{ ref('stg_strava_activities') }}
     {% if is_incremental() %}
     where start_date > (select max(created_at) from {{ this }})
     {% endif %}
