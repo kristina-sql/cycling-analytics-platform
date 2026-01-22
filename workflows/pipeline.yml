@@ -72,5 +72,6 @@ jobs:
       - name: Run dbt (staging only)
         working-directory: transformations
         run: |
+          dbt deps
           dbt debug
           dbt run --select stg_strava_activities
