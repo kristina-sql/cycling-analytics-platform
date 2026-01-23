@@ -29,13 +29,24 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
+
+# raw lives in sources.yml, not here
 models:
   transformations:
+
+    # Parsed & cleaned source data
     staging:
       +materialized: view
-      +schema: stg
+      +schema: staging
 
-    marts:
+    # Reusable dimensions & facts
+    dwh:
       +materialized: table
-      +schema: marts
+      +schema: dwh
+
+    # Business-ready tables for BI
+    analytics:
+      +materialized: table
+      +schema: analytics
+
 

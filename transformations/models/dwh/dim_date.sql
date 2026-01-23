@@ -3,10 +3,12 @@
     unique_key='date_id'
 ) }}
 
+---- independent calendar for time-based analytics, not tied to Strava activity dates
+---- for this I needed to install dbt package dbt_utils
 with date_spine as (
     {{ dbt_utils.date_spine(
         datepart="day",
-        start_date="cast('2020-01-01' as date)",
+        start_date="cast('2025-01-01' as date)",
         end_date="cast('2030-12-31' as date)"
     ) }}
 )

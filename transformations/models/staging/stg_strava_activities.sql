@@ -1,6 +1,5 @@
 {{ config(
-    materialized='view',
-    schema = 'raw'
+    materialized='table'
 ) }}
 
 with source as (
@@ -37,6 +36,8 @@ final as (
         (payload->>'average_watts')::numeric as avg_power_w,
         (payload->>'max_watts')::numeric as max_power_w,
         (payload->>'kilojoules')::numeric as kilojoules,
+        (payload->>'weighted_average_watts')::numeric as weighted_average_watts,
+        (payload->>'average_cadence')::numeric as average_cadence,
 
         (payload->>'average_heartrate')::numeric as avg_hr,
         (payload->>'max_heartrate')::numeric as max_hr,
