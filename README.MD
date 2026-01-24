@@ -8,7 +8,7 @@ This repository contains an end-to-end data analytics project built on top of da
 The main goal of this project is:
 - **Personal performance analysis** of sports activities (initially focused on virtual cycling)
 - **Showcasing data analytics and engineering skills**, including data ingestion, transformation, modeling, and visualization
-- **Learning new tools and calculations
+- **Learning new tools and calculations**
 
 While the current implementation focuses on **virtual cycling activities**, the project is intentionally designed to be scalable. In the future, it may include:
 - Other cycling activity types
