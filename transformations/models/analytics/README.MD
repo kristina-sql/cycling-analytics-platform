@@ -106,7 +106,7 @@ Looker Studio Dashboard
 
 ### Data Lineage
 
-![DBT](assets/images/dbt_lineage.png)
+![DBT](https://github.com/kristina-sql/strava-analytics-platform/blob/720f84c9a1e7c3ae1018661a116ddf6dcaf7e2a6/assets/images/dbt_lineage.png)
 
 ---
 
