@@ -1,5 +1,7 @@
 # Virtual Cycling Performance Analytics 🚴‍♂️
 
+![Zwift Image](assets/images/zwift_image.jpeg)
+
 ## Overview
 End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track training load, physiological efficiency, and performance improvements over time. Built with dbt, automated with GitHub Actions and visualized in Looker Studio.
 
@@ -102,44 +104,9 @@ Looker Studio Dashboard
 
 ---
 
-## Key Metrics Glossary
+### Data Lineage
 
-### Volume Metrics
-| Metric | Description | Unit |
-|--------|-------------|------|
-| `distance_km` | Total distance covered | Kilometers |
-| `duration_minutes` | Total ride time | Minutes |
-| `ride_count` | Number of rides (0 for rest days) | Count |
-
-### Performance Metrics
-| Metric | Description | Formula | Why It Matters |
-|--------|-------------|---------|----------------|
-| `avg_power_w_wt` | Duration-weighted average power | Σ(power × duration) / Σ(duration) | Measures sustained effort |
-| `normalized_power_wt` | Duration-weighted normalized power | Σ(NP × duration) / Σ(duration) | Accounts for variable intensity |
-| `avg_speed_kmh_wt` | Duration-weighted average speed | Σ(speed × duration) / Σ(duration) | Overall pace performance |
-| `avg_hr_bpm_wt` | Duration-weighted average heart rate | Σ(HR × duration) / Σ(duration) | Cardiovascular effort |
-
-### Efficiency Metrics (KEY!)
-| Metric | Description | Formula | Interpretation |
-|--------|-------------|---------|----------------|
-| `watts_per_bpm` | Power output per heart beat | Avg Power / Avg HR | **↑ = Improved fitness** - producing more power at same HR |
-| `efficiency_factor` | Aerobic efficiency | Normalized Power / Avg HR | **↑ = Better endurance** - sustainable power at lower HR |
-
-### Training Load Metrics
-| Metric | Description | Formula | Range |
-|--------|-------------|---------|-------|
-| `tss_total` | Training Stress Score (daily) | (Duration × NP × IF) / (FTP × 3600) × 100 | 0-500+ |
-| `tss_7d` | 7-day rolling TSS (acute load) | Sum of last 7 days TSS | Monitor fatigue |
-| `tss_28d` | 28-day rolling TSS (chronic load) | Sum of last 28 days TSS | Monitor fitness |
-| `intensity_factor` | Ride intensity relative to FTP | Normalized Power / FTP | 0.5-1.5+ |
-
-### Zone Classification
-| Metric | Description | Values |
-|--------|-------------|--------|
-| `power_zone_label` | Power zone (FTP-based) | Z1 (Recovery), Z2 (Endurance), Z3 (Tempo), Z4 (Threshold) |
-| `hr_zone_label` | Heart rate zone | Z1-Z4 based on max HR |
-| `is_high_power_zone` | Flag for threshold+ training | 1 if Z4, 0 otherwise |
-| `is_high_hr_zone` | Flag for high HR effort | 1 if HR Z4, 0 otherwise |
+![DBT](assets/images/dbt_lineage.png)
 
 ---
 
@@ -239,3 +206,43 @@ dbt docs serve
 - [ ] **Weather integration**: Add temperature, wind data for outdoor rides
 - [ ] **Terrain analysis**: Incorporate elevation, gradient, and route difficulty
 - [ ] **Indoor vs outdoor comparison**: Analyze performance differences between Zwift and road cycling
+
+## Key Metrics Glossary
+
+### Volume Metrics
+| Metric | Description | Unit |
+|--------|-------------|------|
+| `distance_km` | Total distance covered | Kilometers |
+| `duration_minutes` | Total ride time | Minutes |
+| `ride_count` | Number of rides (0 for rest days) | Count |
+
+### Performance Metrics
+| Metric | Description | Formula | Why It Matters |
+|--------|-------------|---------|----------------|
+| `avg_power_w_wt` | Duration-weighted average power | Σ(power × duration) / Σ(duration) | Measures sustained effort |
+| `normalized_power_wt` | Duration-weighted normalized power | Σ(NP × duration) / Σ(duration) | Accounts for variable intensity |
+| `avg_speed_kmh_wt` | Duration-weighted average speed | Σ(speed × duration) / Σ(duration) | Overall pace performance |
+| `avg_hr_bpm_wt` | Duration-weighted average heart rate | Σ(HR × duration) / Σ(duration) | Cardiovascular effort |
+
+### Efficiency Metrics (KEY!)
+| Metric | Description | Formula | Interpretation |
+|--------|-------------|---------|----------------|
+| `watts_per_bpm` | Power output per heart beat | Avg Power / Avg HR | **↑ = Improved fitness** - producing more power at same HR |
+| `efficiency_factor` | Aerobic efficiency | Normalized Power / Avg HR | **↑ = Better endurance** - sustainable power at lower HR |
+
+### Training Load Metrics
+| Metric | Description | Formula | Range |
+|--------|-------------|---------|-------|
+| `tss_total` | Training Stress Score (daily) | (Duration × NP × IF) / (FTP × 3600) × 100 | 0-500+ |
+| `tss_7d` | 7-day rolling TSS (acute load) | Sum of last 7 days TSS | Monitor fatigue |
+| `tss_28d` | 28-day rolling TSS (chronic load) | Sum of last 28 days TSS | Monitor fitness |
+| `intensity_factor` | Ride intensity relative to FTP | Normalized Power / FTP | 0.5-1.5+ |
+
+### Zone Classification
+| Metric | Description | Values |
+|--------|-------------|--------|
+| `power_zone_label` | Power zone (FTP-based) | Z1 (Recovery), Z2 (Endurance), Z3 (Tempo), Z4 (Threshold) |
+| `hr_zone_label` | Heart rate zone | Z1-Z4 based on max HR |
+| `is_high_power_zone` | Flag for threshold+ training | 1 if Z4, 0 otherwise |
+| `is_high_hr_zone` | Flag for high HR effort | 1 if HR Z4, 0 otherwise |
+

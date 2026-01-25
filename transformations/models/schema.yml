@@ -34,7 +34,7 @@ models:
         tests:
           - accepted_values:
               values: [0, 1]
-              quote: false # where ride_count not in (0, 1)
+              quote: false # where ride_count not in (0, 1) instead of '0','1'
       
       - name: distance_km
         description: Total distance in kilometers
