@@ -88,5 +88,5 @@ jobs:
           ls -la dbt_packages/dbt_utils || true
       
           dbt debug
-          dbt run --select tag:staging+
+          dbt build --select tag:staging+
 
