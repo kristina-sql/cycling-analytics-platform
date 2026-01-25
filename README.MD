@@ -64,6 +64,7 @@ https://dbdiagram.io/d/strava-data-platform-6971e618bd82f5fce242d2ec
 
 ---
 
+
 ## Tech Stack
 
 - Python (API ingestion)
@@ -113,11 +114,12 @@ https://dbdiagram.io/d/strava-data-platform-6971e618bd82f5fce242d2ec
 | 2026-01-20 | Initial Strava API ingestion logic implemented |
 | 2026-01-20 | Project and repository structure created |
 | 2026-01-21 | Raw Strava data loaded into Neon PostgreSQL |
-| 2026-01-21 | Staging (`stg_*`) models built |
+| 2026-01-21 | Staging models built |
 | 2026-01-21 | Looker connection tested with MVP dashboard |
 | 2026-01-21 | GitHub Actions implemented and validated |
-| 2026-01-22 | Dimensional data model designed and physical schema implementation started |
+| 2026-01-22 | Dimensional data model designed |
 | 2026-01-24 | Finalized fact & dim tables |
+| 2026-01-25 | Added another readme + data lineage |
 
 ### Planned Next Steps
 
@@ -126,7 +128,7 @@ https://dbdiagram.io/d/strava-data-platform-6971e618bd82f5fce242d2ec
 | Medium | Build Looker dashboard | 2026-01-24
 | Low | Design Illustration of Architecture | 2026-01-24
 | High | To add schema.yml & dbt build into GitHub Actions for Data Validation purposes | 2026-01-24
-| Medium | Generate dbt docs and attach data lineage | 2026-01-25
+| Medium | Add PK constraints in schema.yml to align with dbdiagram | 2026-01-27
 
 
 ## Glossary (for learning purposes)
