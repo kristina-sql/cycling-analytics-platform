@@ -64,24 +64,29 @@ https://dbdiagram.io/d/strava-data-platform-6971e618bd82f5fce242d2ec
     strava-analytics-platform/
     ├── assets/
     │   └── images/
-    │       └── strava-logo.png
+    │       └── ai_outcome.png
+    |       └── data_model.png
+    |       └── dbt_lineage.png
+    |       └── figma.png
+    |       └── looker_overview.png
+    |       └── looker_performance.png
+    |       └── pipline_architecture.png
+    |       └── strava_logo.png
+    |       └── zwift_image.png
     ├── ingestion/                     # Strava API ingestion (Python)
     │   ├── src/
     │   │   └── extract.py
+    |   |   └── load_to_neon.py
+    |   |   └── main.py
+    |   |   └── .env
     │   ├── requirements.txt
     │   └── README.md
     ├── transformations/               # dbt project (planned)
     │   ├── models/
     │   │   ├── staging/               # stg_* models
-    │   │   └── marts/                 # facts & dimensions
-    │   │       ├── core/
-    │   │       │   ├── fct_activities.sql
-    │   │       │   ├── dim_athlete.sql
-    │   │       │   └── dim_activity_type.sql
+    │   │   └── dwh/                 # facts & dimensions
+    |   |   └── analytics/ 
     │   │       └── README.md
-    ├── visualization/                 # Tableau assets (planned)
-    │   ├── dashboards/
-    │   └── screenshots/
     ├── README.md
     └── LICENSE
 
