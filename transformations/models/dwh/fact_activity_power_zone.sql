@@ -12,6 +12,7 @@ with activities as (
         normalized_power
     from {{ ref('fact_all_activities') }}
     where normalized_power is not null
+        and ftp_id is not null  
 ),
 
 matched_zone as (
@@ -19,7 +20,9 @@ matched_zone as (
         a.activity_id,
         a.ftp_id,
         'normalized_power'::varchar(20) as classification_basis,
-        a.normalized_power::decimal(6,2) as power_watts
+        a.normalized_power::decimal(6,2) as power_watts,
+        dz.watts_low::decimal(6,2) as zone_watts_low,
+        dz.watts_high::decimal(6,2) as zone_watts_high
     from activities a
     join {{ ref('dim_power_zones') }} dz
       on dz.ftp_id = a.ftp_id

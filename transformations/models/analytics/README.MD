@@ -17,22 +17,22 @@ End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track tr
 - **Why it matters**: 
   - TSS ratio > 1.5 = potential overtraining
   - TSS ratio < 0.8 = detraining risk
-- **Visualization**: 7-day vs 28-day TSS trend with ratio
+- **Visualization**: 7-day vs 28-day TSS trend 
 
 ### 3. **Am I training in the right zones for my goals?**
 - **Metrics**: `power_zone_label`, `hr_zone_label`, zone distribution
 - **Why it matters**: Endurance = Z2, Threshold = Z4, different adaptations
-- **Visualization**: Ride count by zone, zone progression over time
+- **Visualization**: Ride count by zone
 
 ### 4. **Is my efficiency improving?**
 - **Metric**: `efficiency_factor` (Normalized Power / Avg HR)
 - **Why it matters**: Higher efficiency = better aerobic fitness
-- **Visualization**: Efficiency factor trend with 30-day moving average
+- **Visualization**: Efficiency factor trend 
 
 ### 5. **What's my training volume and intensity pattern?**
 - **Metrics**: `distance_km`, `duration_minutes`, `intensity_factor`
 - **Why it matters**: Understand periodization and recovery patterns
-- **Visualization**: Weekly volume bars with intensity overlay
+- **Visualization**: KPIs & bar chart
 
 ---
 
@@ -43,44 +43,13 @@ End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track tr
 - **Orchestration**: GitHub Actions (scheduled daily)
 - **Visualization**: Looker Studio
 - **Version Control**: Git/GitHub
+- **Layout Design**: Figma
 
 ---
 
 ### Architecture Overview
-```
-Raw Data (Strava API)
-    ↓
-Staging Table 
-    ↓
-┌─────────────────────────────────────┐
-│  Star Schema (Fact + Dimension)     │
-├─────────────────────────────────────┤
-│ Facts:                              │
-│  • fact_all_activities              │
-│  • fact_hr_efficiency               │
-│  • fact_activity_power_zones        │
-│                                     │
-│ Dimensions:                         │
-│  • dim_athlete                      │
-│  • dim_date                         │
-│  • dim_power_zones                  │
-│  • dim_hr_zones                     |
-|  • dim_ftp                          │
-└─────────────────────────────────────┘
-    ↓
-┌─────────────────────────────────────┐
-│  Analytics Mart (Final Table)       │
-│  virtual_cycling_summary            │
-│                                     │
-│  • Joins all fact & dim tables      │
-│  • Daily aggregation                │
-│  • Enriched with zone labels        │
-│  • Rolling TSS windows (7d, 28d)    │
-│  • Efficiency metrics               │
-└─────────────────────────────────────┘
-    ↓
-Looker Studio Dashboard
-```
+
+![Architecture](assets/images/pipline_architecture.jpeg)
 
 ### Table Descriptions
 
@@ -114,43 +83,45 @@ Looker Studio Dashboard
 
 **[\[Link to Looker Studio Dashboard\]](https://lookerstudio.google.com/reporting/433ef4e1-9d53-4432-bb01-5f3a14883e9e)**
 
+## Dashboard Design Implemented in Figma (Power Point could be as alternative, better extract es svg)
+
+![Figma](assets/images/figma.png)
+
+## AI Highlight based on report slides
+
+![AI](assets/images/ai_outcomes.png)
+
 ### Dashboard Views:
 
-1. **Performance Trends**
-   - Watts per BPM over time (am I getting fitter?)
-   - Efficiency factor trend
-   - Power and speed progression
+1. **Overview Slide**
+   - Monthly activity summary and KPI metrics
+   - Training zone distribution (Heart Rate and Power zones)
+   - Volume and consistency patterns (distance per ride)
+   - **Key Insight**: Z3 dominated (60% of rides); Z2 could improve aerobic efficiency
 
-2. **Training Load Management**
-   - 7-day vs 28-day TSS (am I overtraining?)
-   - Daily TSS with zone intensity
-   - Rest day patterns
+![Looker_Overview](assets/images/looker_overview.png)
 
-3. **Zone Distribution**
+2. **Performance Trends Slide**
+   - Watts per BPM and Efficiency Factor over time
+   - Training Stress Score (TSS) analysis:
+     - Daily TSS (bars)
+     - 7-day rolling TSS (acute load)
+     - 28-day rolling TSS (chronic load)
+   - Recent activity breakdown with Intensity Factor
+   - **Key Insight**: Watts/BPM stable but efficiency declining—need Z2 focus
+
+![Looker_Overview](assets/images/looker_performance.png)
+
+
+3. **Zone Distribution** (Future plan)
    - Rides by power zone
    - Rides by HR zone
    - Zone time-in-zone analysis
 
-4. **Recent Activity Log**
+4. **Recent Activity Log** (Future plan)
    - Last 10 rides with key metrics
    - Zone classification
    - Performance summary
-
----
-
-## Key Insights
-
-### Fitness Improvement
-![Watts per BPM Trend](screenshots/watts_per_bpm_trend.png)
-*Tracking watts/BPM shows a 12% improvement over 3 months - producing more power at the same heart rate*
-
-### Training Load Balance
-![TSS 7d vs 28d](screenshots/tss_trend.png)
-*7-day TSS tracking helps prevent overtraining while maintaining progressive overload*
-
-### Zone Distribution
-![Zone Analysis](screenshots/zone_distribution.png)
-*80% of rides in Z2 (endurance) with strategic Z4 (threshold) sessions for polarized training*
 
 ---
 

@@ -13,6 +13,7 @@ with athlete as (
 rides as (
     select
         activity_id,
+        activity_name,
         athlete_id,
         activity_date,
         distance_m,
@@ -85,6 +86,8 @@ daily as (
     select
         athlete_id,
         activity_date,
+        activity_id,
+        activity_name,
 
         -- Zone details (will be problematic if I will have more than 1 ride/day, but it is okay for now)
         max(power_zone_label) as power_zone_label,
@@ -134,13 +137,13 @@ daily as (
         max(case when power_zone_number = 4 then 1 else 0 end) as is_high_power_zone
 
     from rides_with_zones
-    group by 1, 2
+    group by 1, 2, 3, 4
 ),
 
 -- 5) days with 0 rides
 date_spine as (
     select
-        d.date_id as activity_date
+        d.date_id as date
     from {{ ref('dim_date') }} d
     where d.date_id between
         (select min(activity_date) from rides)
@@ -152,7 +155,10 @@ date_spine as (
 final as (
     select
         a.athlete_id,
-        ds.activity_date,
+        ds.date,
+        d.activity_id,
+        d.activity_name,
+        d.activity_date,
 
         coalesce(d.ride_count, 0) as ride_count,
         coalesce(d.distance_km, 0) as distance_km,
@@ -182,14 +188,14 @@ final as (
         -- 7-day training Load / fatigue signals (very practical for “am I overdoing it?”)
         sum(coalesce(d.tss_total, 0)) over (
             partition by a.athlete_id --can be removed since only my data is here, but will leave in case I will want to scale
-            order by ds.activity_date
+            order by ds.date
             rows between 6 preceding and current row
         ) as tss_7d,
 
         --28-day training Load
         sum(coalesce(d.tss_total, 0)) over (
             partition by a.athlete_id
-            order by ds.activity_date
+            order by ds.date
             rows between 27 preceding and current row
         ) as tss_28d
 
@@ -197,7 +203,7 @@ final as (
     cross join date_spine ds
     left join daily d
         on d.athlete_id = a.athlete_id
-       and d.activity_date = ds.activity_date
+       and d.activity_date = ds.date
 )
 
 select *

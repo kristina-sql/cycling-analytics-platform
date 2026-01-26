@@ -52,7 +52,6 @@ final as (
     awf.activity_id,
     awf.ftp_id,
 
-    -- Optional: map avg_hr into a zone
     hz.hr_zone_id,
 
     awf.avg_power_w,

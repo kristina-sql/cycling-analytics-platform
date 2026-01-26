@@ -1,11 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key='activity_id',
-    tags=['staging']
 ) }}
-
-{% do log("this=" ~ this, info=True) %}
-{% do log("is_incremental=" ~ is_incremental(), info=True) %}
 
 with source as (
     select * 
@@ -49,8 +45,8 @@ activities_enriched as (
         -- calculated metrics
         round(weighted_average_watts::numeric / ftp.ftp_watts, 3) as intensity_factor,
         round(
-            (round(moving_time_s / 60.0, 2) * weighted_average_watts * (weighted_average_watts::numeric / ftp.ftp_watts)) 
-            / (ftp.ftp_watts * 3600.0) * 100, 
+            (moving_time_s * weighted_average_watts * weighted_average_watts::numeric) 
+            / (ftp.ftp_watts * ftp.ftp_watts * 3600.0) * 100, 
             2
         ) as tss,
         ftp.ftp_watts as ftp_watts_at_activity,

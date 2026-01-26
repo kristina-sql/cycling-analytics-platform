@@ -120,15 +120,16 @@ https://dbdiagram.io/d/strava-data-platform-6971e618bd82f5fce242d2ec
 | 2026-01-22 | Dimensional data model designed |
 | 2026-01-24 | Finalized fact & dim tables |
 | 2026-01-25 | Added another readme + data lineage |
+| 2026-01-26 | Designed Architecture |
+| 2026-01-26 | Finalized 1st Looker Version |
+
 
 ### Planned Next Steps
 
 | Priority | Task | Deadline
 |--------|------|--------|
-| Medium | Build Looker dashboard | 2026-01-24
-| Low | Design Illustration of Architecture | 2026-01-24
-| High | To add schema.yml & dbt build into GitHub Actions for Data Validation purposes | 2026-01-24
-| Medium | Add PK constraints in schema.yml to align with dbdiagram | 2026-01-27
+| Medium | Add PK constraints in schema.yml to align with dbdiagram | 2026-01-27/Feb
+| Medium | Finalize all documentations | February |
 
 
 ## Glossary (for learning purposes)
@@ -143,6 +144,6 @@ https://dbdiagram.io/d/strava-data-platform-6971e618bd82f5fce242d2ec
 | **Fact Constellation** | Dimensional model with multiple fact tables sharing conformed dimensions. |
 | **Grain** | The level of detail represented by one row in a table (e.g., one row per activity). |
 | **SCD Type 2 (SCD2)** | Slowly Changing Dimension approach that preserves historical changes by creating new rows instead of overwriting data. |
-| **Staging Layer** | Cleaned and lightly transformed data layer that mirrors source systems (`stg_*` models in dbt). |
+| **Staging Layer** | Cleaned and lightly transformed data layer that mirrors source systems ( models in dbt). |
 | **Mart Layer** | Analytics-ready layer containing fact and dimension tables for reporting and BI tools. |
 | **DWH** | (Data Warehouse) — a centralized database that stores cleaned and structured data from multiple sources for analytics and reporting. |
