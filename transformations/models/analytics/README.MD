@@ -49,7 +49,7 @@ End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track tr
 
 ### Architecture Overview
 
-![Architecture](assets/images/pipline_architecture.jpeg)
+![Architecture](https://github.com/kristina-sql/strava-analytics-platform/blob/3492b8c9c2662f88a8dc99a3d7ea4706d8b67e54/assets/images/pipline_architecture.png)
 
 ### Table Descriptions
 
@@ -89,7 +89,7 @@ End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track tr
 
 ## AI Highlight based on report slides
 
-![AI](assets/images/ai_outcomes.png)
+![AI](https://github.com/kristina-sql/strava-analytics-platform/blob/3492b8c9c2662f88a8dc99a3d7ea4706d8b67e54/assets/images/ai_outcome.png)
 
 ### Dashboard Views:
 
@@ -99,7 +99,7 @@ End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track tr
    - Volume and consistency patterns (distance per ride)
    - **Key Insight**: Z3 dominated (60% of rides); Z2 could improve aerobic efficiency
 
-![Looker_Overview](assets/images/looker_overview.png)
+![Looker_Overview](https://github.com/kristina-sql/strava-analytics-platform/blob/3492b8c9c2662f88a8dc99a3d7ea4706d8b67e54/assets/images/looker_overview.png)
 
 2. **Performance Trends Slide**
    - Watts per BPM and Efficiency Factor over time
@@ -110,7 +110,7 @@ End-to-end analytics pipeline analyzing Virtual (Zwift) cycling data to track tr
    - Recent activity breakdown with Intensity Factor
    - **Key Insight**: Watts/BPM stable but efficiency declining—need Z2 focus
 
-![Looker_Overview](assets/images/looker_performance.png)
+![Looker_Overview](https://github.com/kristina-sql/strava-analytics-platform/blob/3492b8c9c2662f88a8dc99a3d7ea4706d8b67e54/assets/images/looker_performance.png)
 
 
 3. **Zone Distribution** (Future plan)
