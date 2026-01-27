@@ -53,5 +53,6 @@ This Privacy Policy may be updated if the app’s functionality changes. Any upd
 ---
 
 ## Contact
-If you have questions about this Privacy Policy, please contact:  
+If you have questions about this Privacy Polic or you need help, have questions about your data, 
+or want to disconnect your Strava account or request data deletion, please contact at the email:  
 **gnl.kristina@gmail.com**
