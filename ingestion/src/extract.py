@@ -1,4 +1,4 @@
-# AI wirtten code, need to refine it and comment what is not understandable
+# AI wirtten code, need to refine it fully and comment what is not understandable (requests,os,json part fine, but pathlib, typing added later)
 import os
 import json
 import time
