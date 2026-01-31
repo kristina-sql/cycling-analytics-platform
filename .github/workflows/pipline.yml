@@ -21,6 +21,7 @@ jobs:
       NEON_USER: ${{ secrets.NEON_USER }}
       NEON_PASSWORD: ${{ secrets.NEON_PASSWORD }}
       NEON_PORT: ${{ secrets.NEON_PORT }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Checkout repo
