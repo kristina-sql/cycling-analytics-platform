@@ -15,6 +15,7 @@
 with ftp as (
   select
     ftp_id,
+    athlete_id,
     ftp_watts
   from {{ ref('dim_ftp') }}
 ),
@@ -36,6 +37,7 @@ zone_defs as (
 final as (
   select
     f.ftp_id,
+    f.athlete_id,
     zd.zone_number,
     zd.zone_name,
     zd.zone_label,

@@ -5,7 +5,9 @@
 
 -- scaling is in progress (2 athletes must appear)
 with athlete as (
-    select athlete_id
+    select 
+        athlete_id,
+        first_name
     from {{ source('dwh', 'dim_athlete') }}
 ),
 
@@ -155,6 +157,7 @@ date_spine as (
 final as (
     select
         a.athlete_id,
+        a.first_name as athlete_name,
         ds.date,
         d.activity_id,
         d.activity_name,

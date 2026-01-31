@@ -7,17 +7,13 @@ with source as (
     select * 
     from {{ ref('stg_strava_activities') }}
 
-    --strava IDs are sequential
-    {% if is_incremental() %}
-    where activity_id > (select max(activity_id) from {{ this }})
-    {% endif %}
 ),
 
 activities_enriched as (
     select
         activity_id,
+        s.athlete_id,
         start_date_utc::date as activity_date,
-        12345678::bigint as athlete_id,  -- your athlete id
         
         -- join to get valid ftp for this activity date
         ftp.ftp_id,
@@ -43,13 +39,13 @@ activities_enriched as (
         elevation_m as elevation_gain,
         
         -- calculated metrics
-        round(weighted_average_watts::numeric / ftp.ftp_watts, 3) as intensity_factor,
+        round(weighted_average_watts::numeric / nullif(ftp.ftp_watts, 0), 3) as intensity_factor,
         round(
             (moving_time_s * weighted_average_watts * weighted_average_watts::numeric) 
-            / (ftp.ftp_watts * ftp.ftp_watts * 3600.0) * 100, 
+            / (nullif(ftp.ftp_watts, 0) * nullif(ftp.ftp_watts, 0) * 3600.0) * 100, 
             2
         ) as tss,
-        ftp.ftp_watts as ftp_watts_at_activity,
+        nullif(ftp.ftp_watts, 0) as ftp_watts_at_activity,
         
         -- cadence
         average_cadence as avg_cadence,
@@ -60,11 +56,11 @@ activities_enriched as (
         now() as created_at,
         now() as updated_at
         
-    from source 
+    from source s
     left join {{ ref('dim_ftp') }} as ftp
-        on start_date_utc::date >= ftp.valid_from
+        on s.start_date_utc::date >= ftp.valid_from
+        and s.athlete_id = ftp.athlete_id
         and ftp.valid_to is null
-        and ftp.athlete_id = athlete_id
 )
 
 select * 
