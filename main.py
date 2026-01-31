@@ -17,6 +17,7 @@ async def strava_callback(request: Request):
 
     client_id = os.getenv("STRAVA_CLIENT_ID")
     client_secret = os.getenv("STRAVA_CLIENT_SECRET")
+
     if not client_id or not client_secret:
         raise HTTPException(status_code=500, detail="Missing STRAVA env vars")
 
@@ -31,12 +32,4 @@ async def strava_callback(request: Request):
             },
         )
 
-    if r.status_code >= 400:
-        raise HTTPException(status_code=400, detail=r.text)
-
-    return {"status": "authorized", "token_data": r.json()}
-
-# CLI / GitHub Actions only (won't run under uvicorn)
-if __name__ == "__main__":
-    from extract import main as run_extract
-    run_extract()
+    return {"status": "authorized"}
